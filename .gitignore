@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+MimicMotion/
+outputs/
+temp_image.png
+temp_video.mp4
+*.pth
+*.onnx
+.DS_Store
