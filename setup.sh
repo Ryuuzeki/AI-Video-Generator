@@ -5,7 +5,11 @@ set -e
 
 echo "--- Starting Setup ---"
 
-# 1. Clone MimicMotion repository if it doesn't exist
+# 1. Update pip, setuptools, wheel
+echo "Updating build tools..."
+pip install -U pip setuptools wheel
+
+# 2. Clone MimicMotion repository if it doesn't exist
 if [ ! -d "MimicMotion" ]; then
     echo "Cloning MimicMotion repository..."
     git clone https://github.com/Tencent/MimicMotion.git
@@ -13,11 +17,11 @@ else
     echo "MimicMotion repository already exists."
 fi
 
-# 2. Create models directory
+# 3. Create models directory
 echo "Creating models directory..."
 mkdir -p MimicMotion/models/DWPose
 
-# 3. Download Model Weights
+# 4. Download Model Weights
 echo "Downloading model weights (this may take a while)..."
 
 # DWPose weights

@@ -1,8 +1,8 @@
 torch
 torchvision
 torchaudio
-diffusers==0.27.0
-transformers==4.32.1
+diffusers>=0.27.0
+transformers>=4.36.0
 decord==0.6.0
 einops
 omegaconf
@@ -10,6 +10,7 @@ onnxruntime-gpu
 gradio
 accelerate
 imageio-ffmpeg
+av
 opencv-python
 tqdm
 numpy
