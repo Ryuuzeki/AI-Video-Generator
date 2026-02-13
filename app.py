@@ -57,9 +57,14 @@ def preprocess(video_path, image_path, resolution=576, sample_stride=2):
     return torch.from_numpy(pose_pixels.copy()) / 127.5 - 1, torch.from_numpy(image_pixels) / 127.5 - 1
 
 def run_pipeline(pipeline, image_pixels, pose_pixels, device, task_config):
+    # image_pixels is already on CPU as float32 from preprocess
     image_pixels = [to_pil_image(img.to(torch.uint8)) for img in (image_pixels + 1.0) * 127.5]
     generator = torch.Generator(device=device)
     generator.manual_seed(task_config.seed)
+
+    # Ensure pose_pixels is on the correct device and dtype (float16 for GPU)
+    pose_pixels = pose_pixels.to(device, dtype=torch.float16 if device.type == "cuda" else torch.float32)
+
     frames = pipeline(
         image_pixels, image_pose=pose_pixels, num_frames=pose_pixels.size(0),
         tile_size=task_config.num_frames, tile_overlap=task_config.frames_overlap,
@@ -78,14 +83,14 @@ def load_model():
     if pipeline is None:
         infer_config = OmegaConf.load("configs/test.yaml")
         pipeline = create_pipeline(infer_config, device)
+        if device.type == "cuda":
+            pipeline.to(device, dtype=torch.float16)
     return pipeline
 
 def generate_video(ref_image, ref_video, resolution, sample_stride, num_inference_steps, seed):
     global pipeline
     if pipeline is None:
         pipeline = load_model()
-
-    torch.set_default_dtype(torch.float16)
 
     ref_image_path = "temp_image.png"
     ref_image.save(ref_image_path)
