@@ -39,5 +39,8 @@ if [ ! -f "MimicMotion/models/MimicMotion_1-1.pth" ]; then
 fi
 
 echo "--- Setup Complete! ---"
+echo "PENTING: Model SVD bersifat GATED. Pastikan kamu sudah 'Accept' akses di Hugging Face"
+echo "dan jalankan 'huggingface-cli login' sebelum menjalankan aplikasi."
+echo ""
 echo "You can now install dependencies with: pip install -r requirements.txt"
 echo "And run the app with: python app.py"
