@@ -25,6 +25,16 @@ Agar hasil video maksimal, berikut adalah fungsi dari beberapa tombol pengaturan
     *   **50**: Hasil lebih detail tapi proses 2x lebih lama.
 *   **Seed**: Kode angka untuk mengunci variasi acak. Gunakan angka yang sama jika ingin mengulang hasil yang identik.
 
+## Tips Menghasilkan Kualitas Tinggi (HD)
+
+Agar hasil video tidak kehilangan detail dari foto asli:
+
+1.  **Foto Sumber Berkualitas Tinggi**: Gunakan foto yang tajam, tidak pecah, dan memiliki pencahayaan yang bagus.
+2.  **Rasio Foto 9:16**: Pastikan foto sumber berbentuk portrait (memanjang ke atas) agar tidak terpotong (crop) secara otomatis oleh AI.
+3.  **Naikkan Resolution**: Coba gunakan nilai **720** (jika memori GPU cukup).
+4.  **Tambah Inference Steps**: Ubah ke nilai **50** untuk detail tekstur yang lebih dalam.
+5.  **Post-Processing**: Gunakan tool eksternal seperti **GPFGAN** atau **CodeFormer** untuk mempertajam wajah setelah video selesai dibuat.
+
 ## Panduan Lengkap Google Colab (Langkah demi Langkah)
 
 Ikuti langkah-langkah ini dengan teliti agar tidak ada yang terlewat:
