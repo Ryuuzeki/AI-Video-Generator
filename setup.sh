@@ -17,9 +17,14 @@ else
     echo "MimicMotion repository already exists."
 fi
 
-# 3. Patch for PyTorch compatibility
-echo "Patching MimicMotion for PyTorch compatibility..."
+# 3. Patch for PyTorch compatibility and Diffusers support
+echo "Patching MimicMotion for compatibility..."
+
+# Fix bug safe_globals di loader.py
 sed -i 's/safe_globals(\*allowed_modules)/safe_globals(allowed_modules)/g' MimicMotion/mimicmotion/utils/loader.py
+
+# Fix AttributeError: 'PoseNet' object has no attribute 'dtype'
+sed -i '/class PoseNet(nn.Module):/a \    @property\n    def dtype(self):\n        return next(self.parameters()).dtype' MimicMotion/mimicmotion/modules/pose_net.py
 
 # 4. Create models directory
 echo "Creating models directory..."

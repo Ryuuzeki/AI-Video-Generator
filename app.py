@@ -62,7 +62,7 @@ def run_pipeline(pipeline, image_pixels, pose_pixels, device, task_config):
     generator = torch.Generator(device=device)
     generator.manual_seed(task_config.seed)
 
-    # Ensure pose_pixels is on the correct device and dtype (float16 for GPU)
+    # Fix dtype mismatch: Ensure pose_pixels matches pipeline dtype (float16 on GPU)
     pose_pixels = pose_pixels.to(device, dtype=torch.float16 if device.type == "cuda" else torch.float32)
 
     frames = pipeline(
@@ -84,7 +84,15 @@ def load_model():
         infer_config = OmegaConf.load("configs/test.yaml")
         pipeline = create_pipeline(infer_config, device)
         if device.type == "cuda":
-            pipeline.to(device, dtype=torch.float16)
+             # Safely move components to float16
+             try:
+                 pipeline.to(device, dtype=torch.float16)
+             except AttributeError:
+                 # Fallback if PoseNet patch didn't apply correctly or other issues
+                 pipeline.unet.to(device, dtype=torch.float16)
+                 pipeline.vae.to(device, dtype=torch.float16)
+                 pipeline.image_encoder.to(device, dtype=torch.float16)
+                 pipeline.pose_net.to(device, dtype=torch.float16)
     return pipeline
 
 def generate_video(ref_image, ref_video, resolution, sample_stride, num_inference_steps, seed):
