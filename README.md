@@ -45,7 +45,7 @@ Ikuti langkah-langkah ini dengan teliti agar tidak ada yang terlewat:
 6. **Jalankan Sel 3 (Instalasi Dependensi)**:
    - Klik tombol play. Proses ini memakan waktu sekitar 2-3 menit untuk menginstal pustaka yang dibutuhkan (PyTorch, Diffusers, dll).
 7. **Jalankan Sel 4 (Kloning Repositori)**:
-   - Klik tombol play untuk mengunduh kode sumber MimicMotion dari GitHub.
+   - Klik tombol play untuk mengunduh kode sumber MimicMotion dari GitHub. Sel ini juga secara otomatis memperbaiki bug kompatibilitas dengan PyTorch terbaru.
 8. **Jalankan Sel 5 (Download Model Weights)**:
    - Klik tombol play. Ini akan mengunduh model "otak" AI (sekitar 4-5 GB). Pastikan koneksi internet stabil.
 9. **Jalankan Sel 6 (Jalankan Aplikasi)**:

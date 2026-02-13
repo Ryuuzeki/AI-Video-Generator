@@ -17,11 +17,15 @@ else
     echo "MimicMotion repository already exists."
 fi
 
-# 3. Create models directory
+# 3. Patch for PyTorch compatibility
+echo "Patching MimicMotion for PyTorch compatibility..."
+sed -i 's/safe_globals(\*allowed_modules)/safe_globals(allowed_modules)/g' MimicMotion/mimicmotion/utils/loader.py
+
+# 4. Create models directory
 echo "Creating models directory..."
 mkdir -p MimicMotion/models/DWPose
 
-# 4. Download Model Weights
+# 5. Download Model Weights
 echo "Downloading model weights (this may take a while)..."
 
 # DWPose weights
