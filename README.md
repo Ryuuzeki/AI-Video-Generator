@@ -27,13 +27,13 @@ Agar hasil video maksimal, berikut adalah fungsi dari beberapa tombol pengaturan
 
 ## Tips Menghasilkan Kualitas Tinggi (HD)
 
-Agar hasil video tidak kehilangan detail dari foto asli:
+Agar hasil video tetap tajam dan tidak kehilangan detail dari foto asli (**Simpelnya: Gambar bergeraknya mirip aslinya**):
 
-1.  **Foto Sumber Berkualitas Tinggi**: Gunakan foto yang tajam, tidak pecah, dan memiliki pencahayaan yang bagus.
-2.  **Rasio Foto 9:16**: Pastikan foto sumber berbentuk portrait (memanjang ke atas) agar tidak terpotong (crop) secara otomatis oleh AI.
-3.  **Naikkan Resolution**: Coba gunakan nilai **720** (jika memori GPU cukup).
-4.  **Tambah Inference Steps**: Ubah ke nilai **50** untuk detail tekstur yang lebih dalam.
-5.  **Post-Processing**: Gunakan tool eksternal seperti **GPFGAN** atau **CodeFormer** untuk mempertajam wajah setelah video selesai dibuat.
+1.  **Noise Aug Strength = 0**: Ini adalah kunci utama. Pastikan nilai ini tetap **0**. Semakin besar nilainya, AI akan semakin banyak "mengubah" detail foto asli kamu.
+2.  **Foto Sumber Berkualitas Tinggi**: Gunakan foto portrait (9:16) yang sangat tajam. Hindari foto yang diambil di tempat gelap atau pecah-pecah.
+3.  **Naikkan Resolution**: Standar adalah 576. Jika ingin lebih tajam, naikkan ke **720** (disarankan hanya jika menggunakan GPU T4 ke atas).
+4.  **Tambah Inference Steps**: Naikkan ke **50** atau **100**. AI akan bekerja lebih keras untuk menjaga detail tekstur baju dan kulit.
+5.  **Gunakan AI Face Enhancer**: Karena video AI seringkali membuat wajah sedikit blur, sangat disarankan menggunakan aplikasi seperti **Remini** atau **CodeFormer** pada hasil video akhirnya untuk mengembalikan ketajaman mata dan kulit.
 
 ## Panduan Lengkap Google Colab (Langkah demi Langkah)
 

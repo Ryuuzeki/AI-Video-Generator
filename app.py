@@ -95,7 +95,7 @@ def load_model():
                  pipeline.pose_net.to(device, dtype=torch.float16)
     return pipeline
 
-def generate_video(ref_image, ref_video, resolution, sample_stride, num_inference_steps, seed):
+def generate_video(ref_image, ref_video, resolution, sample_stride, num_inference_steps, noise_aug_strength, seed):
     global pipeline
     if pipeline is None:
         pipeline = load_model()
@@ -111,7 +111,7 @@ def generate_video(ref_image, ref_video, resolution, sample_stride, num_inferenc
         "sample_stride": sample_stride,
         "num_frames": 72,
         "frames_overlap": 6,
-        "noise_aug_strength": 0.02,
+        "noise_aug_strength": noise_aug_strength,
         "guidance_scale": 2.0,
         "num_inference_steps": num_inference_steps,
         "seed": seed,
@@ -136,7 +136,7 @@ def generate_video(ref_image, ref_video, resolution, sample_stride, num_inferenc
 def main():
     with gr.Blocks() as demo:
         gr.Markdown("# MimicMotion AI Full Body Video Generator")
-        gr.Markdown("Pastikan Anda telah menjalankan `./setup.sh` sebelum menjalankan aplikasi ini.")
+        gr.Markdown("Gunakan **Noise Aug Strength = 0** untuk menjaga kemiripan maksimal dengan foto asli.")
         with gr.Row():
             with gr.Column():
                 ref_image = gr.Image(label="Reference Image (Full Body)", type="pil")
@@ -144,6 +144,7 @@ def main():
                 resolution = gr.Slider(minimum=256, maximum=1024, value=576, step=64, label="Resolution")
                 sample_stride = gr.Slider(minimum=1, maximum=10, value=2, step=1, label="Sample Stride")
                 num_inference_steps = gr.Slider(minimum=1, maximum=50, value=25, step=1, label="Inference Steps")
+                noise_aug_strength = gr.Slider(minimum=0.0, maximum=1.0, value=0.0, step=0.01, label="Noise Aug Strength (0 = High Fidelity)")
                 seed = gr.Number(value=42, label="Seed")
                 btn = gr.Button("Generate")
             with gr.Column():
@@ -151,7 +152,7 @@ def main():
 
         btn.click(
             generate_video,
-            inputs=[ref_image, ref_video, resolution, sample_stride, num_inference_steps, seed],
+            inputs=[ref_image, ref_video, resolution, sample_stride, num_inference_steps, noise_aug_strength, seed],
             outputs=output_video
         )
 
